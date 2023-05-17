@@ -1,10 +1,13 @@
 package com.example.demo.member.controller;
 
+import com.example.demo.base.rsData.RsData;
 import com.example.demo.member.service.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,13 +31,20 @@ public class MemberController {
         private String password;
     }
 
+    @AllArgsConstructor
+    @Getter
+    public static class LoginResponse {
+        private final String accessToken;
+    }
+
+
     @PostMapping("/login")
-    public String login(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse resp) {
+    public RsData<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse resp) {
 
         String accessToken = memberService.genAccessToken(loginRequest.getUsername(), loginRequest.getPassword());
 
         resp.addHeader("Authentication", accessToken);
 
-        return "응답본문";
+        return RsData.of("S-1", "엑세스토큰이 발급되었습니다.", new LoginResponse(accessToken));
     }
 }
