@@ -1,6 +1,5 @@
 package com.example.demo.member.controller;
 
-import com.example.demo.member.entity.Member;
 import com.example.demo.member.service.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -30,11 +29,12 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public Member login(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse resp) {
+    public String login(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse resp) {
 
-        resp.addHeader("Authentication", "JWT 토큰");
-        return memberService.findByUsername(loginRequest.getUsername()).orElse(null);
+        String accessToken = memberService.genAccessToken(loginRequest.getUsername(), loginRequest.getPassword());
+
+        resp.addHeader("Authentication", accessToken);
+
+        return "응답본문";
     }
-
-
 }
