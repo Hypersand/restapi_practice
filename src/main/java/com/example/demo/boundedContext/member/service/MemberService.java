@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.Optional;
 
 @Service
@@ -39,7 +40,7 @@ public class MemberService {
 
     public String genAccessToken(Member member) {
 
-        return jwtProvider.genToken(member.toClaims(), 60 * 60 * 24 * 365);
+        return jwtProvider.genToken(member.toClaims(), (int) Duration.ofMinutes(30).toMillis());
     }
 
     public RsData canGenAccessToken(Member member, String password) {

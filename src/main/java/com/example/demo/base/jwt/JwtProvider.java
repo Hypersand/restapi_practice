@@ -35,7 +35,7 @@ public class JwtProvider {
 
     public String genToken(Map<String, Object> claims, int seconds) {
         long now = new Date().getTime();
-        Date accessTokenExpiresIn = new Date(now + 1000L * seconds);
+        Date accessTokenExpiresIn = new Date(now + seconds);
 
         return Jwts.builder()
                 .claim("body", Ut.json.toStr(claims))
