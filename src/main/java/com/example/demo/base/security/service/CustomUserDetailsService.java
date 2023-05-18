@@ -1,7 +1,7 @@
 package com.example.demo.base.security.service;
 
-import com.example.demo.member.entity.Member;
-import com.example.demo.member.service.MemberService;
+import com.example.demo.boundedContext.member.entity.Member;
+import com.example.demo.boundedContext.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

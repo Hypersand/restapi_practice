@@ -1,8 +1,8 @@
-package com.example.demo.member.controller;
+package com.example.demo.boundedContext.member.controller;
 
 import com.example.demo.base.rsData.RsData;
-import com.example.demo.member.entity.Member;
-import com.example.demo.member.service.MemberService;
+import com.example.demo.boundedContext.member.service.MemberService;
+import com.example.demo.boundedContext.member.entity.Member;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;

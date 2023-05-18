@@ -1,8 +1,8 @@
 package com.example.demo.base.security.filter;
 
 import com.example.demo.base.jwt.JwtProvider;
-import com.example.demo.member.entity.Member;
-import com.example.demo.member.service.MemberService;
+import com.example.demo.boundedContext.member.entity.Member;
+import com.example.demo.boundedContext.member.service.MemberService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

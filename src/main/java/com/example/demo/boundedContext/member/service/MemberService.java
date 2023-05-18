@@ -1,8 +1,8 @@
-package com.example.demo.member.service;
+package com.example.demo.boundedContext.member.service;
 
 import com.example.demo.base.jwt.JwtProvider;
-import com.example.demo.member.entity.Member;
-import com.example.demo.member.repository.MemberRepository;
+import com.example.demo.boundedContext.member.entity.Member;
+import com.example.demo.boundedContext.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
