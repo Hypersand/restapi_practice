@@ -2,9 +2,7 @@ package com.example.demo.boundedContext.article.entity;
 
 import com.example.demo.base.entity.BaseEntity;
 import com.example.demo.boundedContext.member.entity.Member;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -30,6 +28,11 @@ public class Article extends BaseEntity {
         article.setContent(content);
 
         return article;
+    }
+
+    public void modifyArticle(String subject, String content) {
+        this.subject = subject;
+        this.content = content;
     }
 
 }
