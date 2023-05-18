@@ -6,6 +6,7 @@ import com.example.demo.base.security.filter.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,9 +29,9 @@ public class ApiSecurityConfig {
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint))
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
-                                .requestMatchers("/api/*/member/login").permitAll() // 로그인은 누구나 가능
-                                .requestMatchers("/api/*/articles").permitAll()
-                                .requestMatchers("/api/*/articles/*").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/*/member/login").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/*/articles").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/*/articles/*").permitAll() 
                                 .anyRequest().authenticated() // 나머지는 인증된 사용자만 가능
                 )
                 .cors().disable() // 타 도메인에서 API 호출 가능
