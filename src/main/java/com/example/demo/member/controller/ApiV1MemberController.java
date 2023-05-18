@@ -4,6 +4,7 @@ import com.example.demo.base.rsData.RsData;
 import com.example.demo.member.entity.Member;
 import com.example.demo.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -57,7 +58,7 @@ public class ApiV1MemberController {
     }
 
     @GetMapping(value = "/me", consumes = ALL_VALUE)
-    @Operation(summary = "로그인 된 회원의 정보")
+    @Operation(summary = "로그인된 사용자의 정보", security = @SecurityRequirement(name = "bearerAuth"))
     public RsData<MeResponse> me(@AuthenticationPrincipal User user) {
         Member user1 = memberService.findByUsername(user.getUsername()).get();
 
