@@ -23,7 +23,7 @@ public class ApiSecurityConfig {
     private final ApiAuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .securityMatcher("/api/**")
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint))
@@ -31,7 +31,7 @@ public class ApiSecurityConfig {
                         authorizeHttpRequests -> authorizeHttpRequests
                                 .requestMatchers(HttpMethod.POST, "/api/*/member/login").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/*/articles").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/*/articles/*").permitAll() 
+                                .requestMatchers(HttpMethod.GET, "/api/*/articles/*").permitAll()
                                 .anyRequest().authenticated() // 나머지는 인증된 사용자만 가능
                 )
                 .cors().disable() // 타 도메인에서 API 호출 가능

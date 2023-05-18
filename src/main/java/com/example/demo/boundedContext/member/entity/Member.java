@@ -36,6 +36,10 @@ public class Member extends BaseEntity {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("MEMBER"));
 
+        if (getUsername().equals("admin")) {
+            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        }
+
         return authorities;
     }
 
