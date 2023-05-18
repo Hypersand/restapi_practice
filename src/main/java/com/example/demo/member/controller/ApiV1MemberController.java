@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.MediaType.ALL_VALUE;
@@ -52,8 +54,8 @@ public class ApiV1MemberController {
     }
 
     @GetMapping(value = "/me", consumes = ALL_VALUE)
-    public RsData<MeResponse> me() {
-        Member user1 = memberService.findByUsername("user1").get();
+    public RsData<MeResponse> me(@AuthenticationPrincipal User user) {
+        Member user1 = memberService.findByUsername(user.getUsername()).get();
 
         return RsData.of("S-1", "성공", new MeResponse(user1));
     }

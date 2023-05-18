@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -55,6 +56,7 @@ class MemberControllerTest {
 
     @Test
     @DisplayName("GET /member/me 는 내 정보 조회")
+    @WithUserDetails("user1")
     void t2() throws Exception {
         ResultActions resultActions = mvc.perform(
                         get("/api/v1/member/me")
@@ -66,8 +68,8 @@ class MemberControllerTest {
                 .andExpect(jsonPath("$.resultCode").value("S-1"))
                 .andExpect(jsonPath("$.msg").exists())
                 .andExpect(jsonPath("$.data.member.id").exists())
-                .andExpect(jsonPath("$.data.member.username").exists())
-                .andExpect(jsonPath("$.data.member.email").exists());
+                .andExpect(jsonPath("$.data.member.username").value("user1"))
+                .andExpect(jsonPath("$.data.member.email").value("user1@naver.com"));
 
     }
 
