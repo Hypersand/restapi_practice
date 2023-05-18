@@ -3,7 +3,6 @@ package com.example.demo.member.controller;
 import com.example.demo.base.rsData.RsData;
 import com.example.demo.member.entity.Member;
 import com.example.demo.member.service.MemberService;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
