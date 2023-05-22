@@ -19,6 +19,9 @@ public class JwtProvider {
     @Value("${custom.jwt.secretKey}")
     private String secretKeyPlain;
 
+    @Value("${custom.jwt.token-validity-in-seconds}")
+    private int seconds;
+
     private SecretKey _getSecretKey() {
         String keyBase64Encoded = Base64.getEncoder().encodeToString(secretKeyPlain.getBytes());
 
@@ -33,7 +36,7 @@ public class JwtProvider {
         return cachedSecretKey;
     }
 
-    public String genToken(Map<String, Object> claims, int seconds) {
+    public String genToken(Map<String, Object> claims) {
         long now = new Date().getTime();
         Date accessTokenExpiresIn = new Date(now + seconds);
 

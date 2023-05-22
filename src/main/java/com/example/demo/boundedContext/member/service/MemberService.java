@@ -40,7 +40,7 @@ public class MemberService {
 
     public String genAccessToken(Member member) {
 
-        return jwtProvider.genToken(member.toClaims(), (int) Duration.ofMinutes(30).toMillis());
+        return jwtProvider.genToken(member.toClaims());
     }
 
     public RsData canGenAccessToken(Member member, String password) {

@@ -27,3 +27,4 @@ custom:
     baseUrl: http://localhost
   jwt:
     secretKey: "${custom.jwt.secretKey}"
+    token-validity-in-seconds: 86400
