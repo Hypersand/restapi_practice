@@ -1,16 +1,15 @@
 package com.example.demo.boundedContext.member.controller;
 
 import com.example.demo.base.rsData.RsData;
-import com.example.demo.boundedContext.member.service.MemberService;
+import com.example.demo.boundedContext.member.dto.LoginRequest;
+import com.example.demo.boundedContext.member.dto.LoginResponse;
+import com.example.demo.boundedContext.member.dto.MeResponse;
 import com.example.demo.boundedContext.member.entity.Member;
+import com.example.demo.boundedContext.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -26,20 +25,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class ApiV1MemberController {
 
     private final MemberService memberService;
-
-    @Data
-    public static class LoginRequest {
-        @NotBlank
-        private String username;
-        @NotBlank
-        private String password;
-    }
-
-    @AllArgsConstructor
-    @Getter
-    public static class LoginResponse {
-        private final String accessToken;
-    }
 
 
     @PostMapping("/login")
@@ -63,11 +48,6 @@ public class ApiV1MemberController {
         return RsData.of("S-1", "엑세스토큰이 발급되었습니다.", new LoginResponse(accessToken));
     }
 
-    @AllArgsConstructor
-    @Getter
-    public static class MeResponse {
-        private final Member member;
-    }
 
     @GetMapping(value = "/me", consumes = ALL_VALUE)
     @Operation(summary = "로그인된 사용자의 정보", security = @SecurityRequirement(name = "bearerAuth"))
