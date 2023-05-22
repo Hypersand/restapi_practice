@@ -2,6 +2,7 @@ package com.example.demo.boundedContext.article.controller;
 
 
 import com.example.demo.base.rsData.RsData;
+import com.example.demo.boundedContext.article.dto.*;
 import com.example.demo.boundedContext.article.entity.Article;
 import com.example.demo.boundedContext.article.service.ArticleService;
 import com.example.demo.boundedContext.member.entity.Member;
@@ -33,11 +34,6 @@ public class ApiV1ArticleController {
     private final ArticleService articleService;
     private final MemberService memberService;
 
-    @AllArgsConstructor
-    @Getter
-    public static class ArticlesResponse {
-        private final List<Article> articles;
-    }
 
     @GetMapping(value = "")
     @Operation(summary = "조회")
@@ -47,11 +43,6 @@ public class ApiV1ArticleController {
         return RsData.of("S-1", "성공", new ArticlesResponse(articles));
     }
 
-    @AllArgsConstructor
-    @Getter
-    public static class ArticleResponse {
-        private final Article article;
-    }
 
     @GetMapping(value = "/{id}")
     @Operation(summary = "단건 조회")
@@ -68,21 +59,6 @@ public class ApiV1ArticleController {
         return RsData.of("S-1", "성공", new ArticleResponse(article));
     }
 
-    @Data
-    public static class WriteRequest {
-        @NotBlank
-        private String subject;
-
-        @NotBlank
-        private String content;
-    }
-
-    @AllArgsConstructor
-    @Getter
-    public static class WriteResponse {
-        private final Article article;
-    }
-
     @PostMapping(value = "", consumes = APPLICATION_JSON_VALUE)
     @Operation(summary = "등록", security = @SecurityRequirement(name = "bearerAuth"))
     public RsData<WriteResponse> write(@AuthenticationPrincipal User user, @Valid @RequestBody WriteRequest writeRequest) {
@@ -96,22 +72,11 @@ public class ApiV1ArticleController {
         return RsData.of(writeRsData.getResultCode(), writeRsData.getMsg(), new WriteResponse(writeRsData.getData()));
     }
 
-    @Data
-    public static class ModifyRequest {
-        private String subject;
-        private String content;
-    }
-
-    @AllArgsConstructor
-    @Getter
-    public static class ModifyResponse {
-        private final Article article;
-    }
 
     @PatchMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE)
     @Operation(summary = "수정", security = @SecurityRequirement(name = "bearerAuth"))
     public RsData<ModifyResponse> modify(@AuthenticationPrincipal User user, @Valid @RequestBody ModifyRequest modifyRequest
-        ,@PathVariable Long id) {
+        , @PathVariable Long id) {
 
         Member member = memberService.findByUsername(user.getUsername()).orElseThrow();
 
